@@ -18,7 +18,10 @@ $content = Import-CSV -Path $path
                 if ($x -eq ($z + 1)) { $a = $b + 1; $b = $a + $items}
                 $z = $x
                 
+                #Distribute the workload
                 $files = $files[$global:a..$global:b]
+
+                #Each job now has a portion of the work to run.
                 foreach ($file in $files) {
                 #Do some action
                 }  
