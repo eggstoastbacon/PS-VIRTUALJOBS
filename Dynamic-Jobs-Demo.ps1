@@ -8,7 +8,7 @@ $path = "filepath"
 $files = 1..134
 #Number of seperate jobs to spawn
 $jobs = 5
-
+$logdir = "c:\temp"
 $y = 0..($jobs - 1)
 #divide the jobs up equally
 $items = [math]::Round($files.count / $y.count)
@@ -27,7 +27,8 @@ foreach ($x in $y) {
 
         #Each job now has a portion of the work to run.
         foreach ($xfile in $xfiles) {
-            $xfile | out-file c:\temp\results_$x.txt -append
+            $xfile | out-file $logdir\esults_$x.txt -append
+            
         }  
     } -ArgumentList ($x, $items, $files)
 }
