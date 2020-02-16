@@ -1,3 +1,8 @@
+function checkJobState {
+    $jobStatus = get-job * | Select-Object State | foreach ( { $_.State })
+    if ("Running" -in $JobStatus) { $Global:Status = "Running" }else { $Global:Status = "Finished" }
+}
+
 $d = "01", "02", "03", "04", "05", "06", "07", "08"
 $y = "01", "02", "03", "04", "05", "06", "07", "08"
 
