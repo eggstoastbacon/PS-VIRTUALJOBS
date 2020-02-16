@@ -5,6 +5,7 @@ function checkJobState {
 
 $d = "01", "02", "03", "04", "05", "06", "07", "08"
 $y = "01", "02", "03", "04", "05", "06", "07", "08"
+$variables = import-csv somelistofitems.text
 
 foreach ($c in $d) {
     foreach ($x in $y) {
@@ -23,6 +24,7 @@ foreach ($c in $d) {
                 $variables = $variables[$global:i..$global:a]
 
                 foreach ($variable in $variables) {
+                #do something with this item.
                 }  
             } -ArgumentList ($c, $x)) 
     }
