@@ -17,8 +17,7 @@ foreach ($c in $d) {
 
                 $variables = $variables[$global:i..$global:a]
 
-                foreach ($variable in $variables){
-                
+                foreach ($variable in $variables)
                 }  
                 } -ArgumentList ($c, $x)) 
                 }
