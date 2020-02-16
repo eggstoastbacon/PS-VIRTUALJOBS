@@ -1,29 +1,29 @@
-function checkJobState {
-    $jobStatus = get-job * | Select-Object State | foreach ( { $_.State })
-    if ("Running" -in $JobStatus) { $Global:Status = "Running" }else { $Global:Status = "Finished" }
-}
+#Your content
+$path = "filepath"
+$files = 1..50
+#Number of seperate jobs to spawn
+$jobs = 8
 
-#Items to run per job. Increase or decrease to distribute load over job tasks.
-$items = 25
-#Spawn 8 jobs (doing $items amount each)
-$y = 0..7
-$path = "\filepath"
-$content = Import-CSV -Path $path
+$y = 0..($jobs - 1)
+#divide the jobs up equally
+$items = [math]::Round($files.count / $y.count)
+if(($files.count / $y.count) -like "*.*"){$items = $items + 1}
+
 
     foreach ($x in $y) {
-        new-variable -Name ($x + "_jobvar") -value (start-job -Name ($x + "_job") -ScriptBlock {
-                param ([string]$x) 
-               
-                if ($x -eq 0) { $a = 0; $b = $a + $items;write-host "true" }
-                if ($x -eq ($z + 1)) { $a = $b + 1; $b = $a + $items}
-                $z = $x
-                
+        start-job -Name ([string]$x + "_jobvar") -ScriptBlock {
+                param ([string]$x,[int]$items,$files) 
+                                
+                if($x -eq 0){$a = 0} else {$a = (([int]$items * $x) + 1)}               
+                $b = (([int]$items * $x) + [int]$items)
+                              
                 #Distribute the workload
-                $files = $files[$global:a..$global:b]
+                $xfiles = $files[[int]$a..[int]$b] 
 
                 #Each job now has a portion of the work to run.
-                foreach ($file in $files) {
-                #Do some action
+                foreach ($xfile in $xfiles) {
+                $xfile | out-file c:\temp\results_$x.txt -append
                 }  
-            } -ArgumentList ($x)) 
+            } -ArgumentList ($x,$items,$files)
     }
+
