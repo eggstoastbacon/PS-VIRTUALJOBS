@@ -24,5 +24,6 @@ foreach ($c in $d) {
 
                 foreach ($variable in $variables) {
                 }  
-                } -ArgumentList ($c, $x)) 
-                }
+            } -ArgumentList ($c, $x)) 
+    }
+}
