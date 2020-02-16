@@ -27,7 +27,7 @@ foreach ($x in $y) {
 
         #Each job now has a portion of the work to run.
         foreach ($xfile in $xfiles) {
-            $xfile | out-file $logdir\esults_$x.txt -append
+            $xfile | out-file $logdir\results_$x.txt -append
             
         }  
     } -ArgumentList ($x, $items, $files)
